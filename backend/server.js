@@ -1,7 +1,8 @@
 import express from "express";
-import products from "./data/products.js";
-import dotenv from 'dotenv'
+import dotenv from "dotenv";
 import connectDB from "./config/db.js";
+import productRoutes from "./routes/productRoutes.js";
+import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 connectDB(); //connect to MongoDB
 
@@ -11,17 +12,17 @@ const port = process.env.PORT || 8000;
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('APT is running.....')
-})
+//Routes
 
-app.get('/api/products', (req, res) => {
-    res.json(products);
-})
+app.get("/", (req, res) => {
+  res.send("APT is running.....");
+});
 
-app.get('/api/products/:id', (req, res) => {
-    const product = products.find((p) => (p._id === req.params.id));
-    res.json(product);
-})
+app.use("/api/products", productRoutes);
 
-app.listen(port, () => console.log(`Server running on port ${port}`))
+//Error Handlers
+app.use(notFound);
+app.use(errorHandler);
+
+//Terminal Message
+app.listen(port, () => console.log(`Server running on port ${port}`));
