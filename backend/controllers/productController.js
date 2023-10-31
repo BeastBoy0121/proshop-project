@@ -2,7 +2,7 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import Product from "../models/productModel.js";
 
 //@desc Fetch all Products
-//@route Grt /api/products
+//@route Get /api/products
 //@access Public
 
 const getProducts = asyncHandler(async (req, res) => {
@@ -11,7 +11,7 @@ const getProducts = asyncHandler(async (req, res) => {
 });
 
 //@desc Fetch a Product
-//@route Grt /api/products/:id
+//@route Get /api/products/:id
 //@access Public
 
 const getProductById = asyncHandler(async (req, res) => {
